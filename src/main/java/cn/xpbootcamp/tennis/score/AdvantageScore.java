@@ -1,4 +1,6 @@
-package cn.xpbootcamp.tennis;
+package cn.xpbootcamp.tennis.score;
+
+import cn.xpbootcamp.tennis.Player;
 
 public class AdvantageScore extends AbstractScore {
     public AdvantageScore(Player player1, Player player2) {

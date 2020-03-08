@@ -1,6 +1,9 @@
-package cn.xpbootcamp.tennis;
+package cn.xpbootcamp.tennis.score;
 
-public class RegularLandScore extends AbstractScore{
+import cn.xpbootcamp.tennis.Player;
+import cn.xpbootcamp.tennis.score.AbstractScore;
+
+public class RegularLandScore extends AbstractScore {
 
     public RegularLandScore(Player player1, Player player2) {
         super(player1, player2);

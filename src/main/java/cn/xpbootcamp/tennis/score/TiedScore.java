@@ -1,7 +1,9 @@
-package cn.xpbootcamp.tennis;
+package cn.xpbootcamp.tennis.score;
 
 
-public class TiedScore extends AbstractScore{
+import cn.xpbootcamp.tennis.Player;
+
+public class TiedScore extends AbstractScore {
 
     public TiedScore(Player player1, Player player2) {
         super(player1, player2);

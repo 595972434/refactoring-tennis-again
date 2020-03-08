@@ -1,6 +1,8 @@
-package cn.xpbootcamp.tennis;
+package cn.xpbootcamp.tennis.score;
 
-public class WonScore extends AbstractScore{
+import cn.xpbootcamp.tennis.Player;
+
+public class WonScore extends AbstractScore {
 
     public WonScore(Player player1, Player player2) {
         super(player1, player2);

@@ -19,15 +19,15 @@ public class Player {
         score++;
     }
 
-    boolean isTiedWith(Player player) {
+    public boolean isTiedWith(Player player) {
         return score == player.score;
     }
 
-    boolean hasAdvantageOver(Player player) {
+    public boolean hasAdvantageOver(Player player) {
         return score>=4 && score - player.score == 1;
     }
 
-    boolean hasWonAgainst(Player player) {
+    public boolean hasWonAgainst(Player player) {
         return score>=4 && score - player.score >= 2;
     }
 }
