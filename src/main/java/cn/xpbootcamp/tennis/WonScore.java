@@ -1,13 +1,20 @@
 package cn.xpbootcamp.tennis;
 
 public class WonScore {
-    private final Player player;
+    private final Player player1;
+    private final Player player2;
 
-    public WonScore(Player player) {
-        this.player = player;
+    public WonScore(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
+
     public String state() {
-        return "Win for " + player.getName();
+        return "Win for " + (player1.hasWonAgainst(player2) ? player1.getName() : player2.getName());
+    }
+
+    public boolean isApplied() {
+        return player1.hasWonAgainst(player2) || player2.hasWonAgainst(player1);
     }
 }

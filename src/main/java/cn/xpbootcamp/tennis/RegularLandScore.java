@@ -18,4 +18,8 @@ public class RegularLandScore {
     private String getScoreName(int score) {
         return Arrays.asList("Love", "Fifteen", "Thirty", "Forty").get(score);
     }
+
+    public boolean isApplied() {
+        return true;
+    }
 }

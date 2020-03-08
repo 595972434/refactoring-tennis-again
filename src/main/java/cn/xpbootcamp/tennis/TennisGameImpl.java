@@ -18,22 +18,22 @@ public class TennisGameImpl {
     }
 
     public String getScore() {
-        if (player1.isTiedWith(player2)) {
-            return new TiedScore(player1).state();
+        TiedScore tiedScore = new TiedScore(player1, player2);
+        if (tiedScore.isApplied()) {
+            return tiedScore.state();
         }
-        if (player1.hasAdvantageOver(player2)) {
-            return new AdvantageScore(player1).state();
+        AdvantageScore advantageScore = new AdvantageScore(player1, player2);
+        if (advantageScore.isApplied()) {
+            return advantageScore.state();
         }
-        if (player2.hasAdvantageOver(player1)) {
-            return new AdvantageScore(player2).state();
+        WonScore wonScore = new WonScore(player1, player2);
+        if (wonScore.isApplied()) {
+            return wonScore.state();
         }
-        if (player1.hasWonAgainst(player2)) {
-            return new WonScore(player1).state();
-        }
-        if (player2.hasWonAgainst(player1)) {
-            return new WonScore(player2).state();
-        }
-        return new RegularLandScore(player1, player2).state();
+        RegularLandScore regularLandScore = new RegularLandScore(player1, player2);
+        if (regularLandScore.isApplied())
+        return regularLandScore.state();
+        return "";
     }
 
 }

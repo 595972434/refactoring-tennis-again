@@ -3,9 +3,12 @@ package cn.xpbootcamp.tennis;
 import java.util.Arrays;
 
 public class TiedScore {
-    private final Player player;
-    public TiedScore(Player player) {
-        this.player = player;
+    private final Player player1;
+    private final Player player2;
+
+    public TiedScore(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     private String getScoreName(int score) {
@@ -13,7 +16,11 @@ public class TiedScore {
     }
 
     public String state() {
-        return player.getScore() >2 ? "Deuce" : getScoreName(player.getScore()) + '-' + "All";
+        return player1.getScore() >2 ? "Deuce" : getScoreName(player1.getScore()) + '-' + "All";
 
+    }
+
+    public boolean isApplied() {
+        return player1.isTiedWith(player2);
     }
 }
