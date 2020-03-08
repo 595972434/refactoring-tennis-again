@@ -18,4 +18,16 @@ public class Player {
     public void wonPoint(){
         score++;
     }
+
+    boolean isTiedWith(Player player) {
+        return score == player.score;
+    }
+
+    boolean hasAdvantageOver(Player player) {
+        return score>=4 && score - player.score == 1;
+    }
+
+    boolean hasWonAgainst(Player player) {
+        return score>=4 && score - player.score >= 2;
+    }
 }
