@@ -23,40 +23,38 @@ public class TennisGameImpl {
     public String getScore() {
         if (isTiedScore()) {
             return player1Score > 2 ? "Deuce" : getScoreName(player1Score) + "-All";
-        } else if (isAtLeastOneUpto4Point()) {
-            if (isPlayer1Advantage()) {
-                return "Advantage " + player1Name;
-            }
-            if (isPlayer2Advantage()) {
-                return "Advantage " + player2Name;
-            }
-            if (isPlayer1Won()) {
-                return "Win for " + player1Name;
-            }
-            if (isPlayer2Won()) {
-                return "Win for " + player2Name;
-            }
-        } else {
-            return getScoreName(player1Score) + "-" + getScoreName(player2Score);
         }
-        return "";
+        if (isPlayer1Advantage()) {
+            return "Advantage " + player1Name;
+        }
+        if (isPlayer2Advantage()) {
+            return "Advantage " + player2Name;
+        }
+        if (isPlayer1Won()) {
+            return "Win for " + player1Name;
+        }
+        if (isPlayer2Won()) {
+            return "Win for " + player2Name;
+        }
+        return getScoreName(player1Score) + "-" + getScoreName(player2Score);
+
     }
 
     private boolean isPlayer2Won() {
-        return player2Score - player1Score >= 2;
+        return isAtLeastOneUpto4Point() && player2Score - player1Score >= 2;
 
     }
 
     private boolean isPlayer1Won() {
-        return player1Score - player2Score >= 2;
+        return isAtLeastOneUpto4Point() && player1Score - player2Score >= 2;
     }
 
     private boolean isPlayer2Advantage() {
-        return player2Score - player1Score == 1;
+        return isAtLeastOneUpto4Point() && player2Score - player1Score == 1;
     }
 
     private boolean isPlayer1Advantage() {
-        return player1Score - player2Score == 1;
+        return isAtLeastOneUpto4Point() && player1Score - player2Score == 1;
     }
 
     private boolean isAtLeastOneUpto4Point() {
