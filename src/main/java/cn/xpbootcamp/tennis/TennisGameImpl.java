@@ -1,7 +1,5 @@
 package cn.xpbootcamp.tennis;
 
-import java.util.Arrays;
-
 public class TennisGameImpl {
     private Player player1;
     private Player player2;
@@ -21,44 +19,21 @@ public class TennisGameImpl {
 
     public String getScore() {
         if (player1.isTiedWith(player2)) {
-            return scoreForTied();
+            return new TiedScore(player1).state();
         }
         if (player1.hasAdvantageOver(player2)) {
-            return scoreForAdvantage(player1.getName());
+            return new AdvantageScore(player1).state();
         }
         if (player2.hasAdvantageOver(player1)) {
-            return scoreForAdvantage(player2.getName());
+            return new AdvantageScore(player2).state();
         }
         if (player1.hasWonAgainst(player2)) {
-            return scoreForWin(player1.getName());
+            return new WonScore(player1).state();
         }
         if (player2.hasWonAgainst(player1)) {
-            return scoreForWin(player2.getName());
+            return new WonScore(player2).state();
         }
-        return scoreForBothBelow4Point();
-    }
-
-    private String scoreForBothBelow4Point() {
-        return getScoreName(player1.getScore()) + '-' + getScoreName(player2.getScore());
-    }
-
-    private String scoreForWin(String playerName) {
-        return "Win for " + playerName;
-    }
-
-    private String scoreForAdvantage(String playerName) {
-        return "Advantage " + playerName;
-    }
-
-
-    private String scoreForTied() {
-        String score;
-        score = player1.getScore() >2 ? "Deuce" : getScoreName(player1.getScore()) + '-' + "All";
-        return score;
-    }
-
-    private String getScoreName(int score) {
-        return Arrays.asList("Love", "Fifteen", "Thirty", "Forty").get(score);
+        return new RegularLandScore(player1, player2).state();
     }
 
 }
