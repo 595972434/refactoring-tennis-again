@@ -21,40 +21,94 @@ public class TennisGameImpl {
     }
 
     public String getScore() {
-        String score = "";
+        if (isTied()) {
+            return scoreForTied();
+        }
+        if (isAtLeastOneScoreAbove4Points()) {
+            return  scoreForAtLeastOneScoreAbove4Points();
+        }
+        return scoreForBothBelow4Point();
+    }
+
+    private String scoreForBothBelow4Point() {
         int tempScore;
-        if (player1Score == player2Score) {
-            score = player1Score >2 ? "Deuce" : getScoreName(player1Score) + '-' + "All";
-        } else if (player1Score >= 4 || player2Score >= 4) {
-            int minusResult = player1Score - player2Score;
-            if (minusResult == 1) score = "Advantage " + player1Name;
-            else if (minusResult == -1) score = "Advantage " + player2Name;
-            else if (minusResult >= 2) score = "Win for " + player1Name;
-            else score = "Win for " + player2Name;
-        } else {
-            for (int i = 1; i < 3; i++) {
-                if (i == 1) tempScore = player1Score;
-                else {
-                    score += "-";
-                    tempScore = player2Score;
-                }
-                switch (tempScore) {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
+        String score = "";
+        for (int i = 1; i < 3; i++) {
+            if (i == 1) tempScore = player1Score;
+            else {
+                score += "-";
+                tempScore = player2Score;
+            }
+            switch (tempScore) {
+                case 0:
+                    score += "Love";
+                    break;
+                case 1:
+                    score += "Fifteen";
+                    break;
+                case 2:
+                    score += "Thirty";
+                    break;
+                case 3:
+                    score += "Forty";
+                    break;
             }
         }
         return score;
+    }
+
+    private String scoreForAtLeastOneScoreAbove4Points() {
+        if (isPlayer1Advantage()) {
+            return scoreForAdvantage(player1Name);
+        }
+        if (isPlayer2Advantage()) {
+            return scoreForAdvantage(player2Name);
+        }
+        if (isPlayer1Win()) {
+            return scoreForWin(player1Name);
+        }
+        if (isPlayer2Win()) {
+            return scoreForWin(player2Name);
+        }
+        return "";
+    }
+
+    private String scoreForWin(String playerName) {
+        return "Win for " + playerName;
+    }
+
+    private String scoreForAdvantage(String playerName) {
+        return "Advantage " + playerName;
+    }
+
+    private boolean isPlayer2Win() {
+        return player2Score - player1Score >=2;
+    }
+
+    private boolean isPlayer1Win() {
+        return player1Score - player2Score >= 2;
+    }
+
+    private boolean isPlayer2Advantage() {
+        return player1Score - player2Score == -1;
+    }
+
+    private boolean isPlayer1Advantage() {
+        return player1Score - player2Score == 1;
+    }
+
+    private String scoreForTied() {
+        String score;
+        score = player1Score >2 ? "Deuce" : getScoreName(player1Score) + '-' + "All";
+        return score;
+    }
+
+    private boolean isAtLeastOneScoreAbove4Points() {
+        return player1Score >= 4 || player2Score >= 4;
+    }
+
+    private boolean isTied() {
+        return player1Score == player2Score;
     }
 
     private String getScoreName(int score) {
