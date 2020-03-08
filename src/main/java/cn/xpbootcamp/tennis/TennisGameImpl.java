@@ -33,7 +33,7 @@ public class TennisGameImpl {
         if (regularAgainst.isApplied()) {
             return regularAgainst.state();
         }
-        return "";
+        return new EmptyScore(player1, player2).state();
 
     }
 }
