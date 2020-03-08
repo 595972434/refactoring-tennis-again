@@ -1,5 +1,12 @@
 package cn.xpbootcamp.tennis;
 
+import cn.xpbootcamp.tennis.score.AbstractScore;
+import cn.xpbootcamp.tennis.score.AdvantageScore;
+import cn.xpbootcamp.tennis.score.EmptyScore;
+import cn.xpbootcamp.tennis.score.RegularAgainstScore;
+import cn.xpbootcamp.tennis.score.TiedScore;
+import cn.xpbootcamp.tennis.score.WonScore;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,7 +39,7 @@ public class TennisGameImpl {
                 new TiedScore(player1, player2),
                 new AdvantageScore(player1, player2),
                 new WonScore(player1, player2),
-                new RegularAgainst(player1, player2)
+                new RegularAgainstScore(player1, player2)
         );
     }
 }

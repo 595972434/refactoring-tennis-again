@@ -1,4 +1,6 @@
-package cn.xpbootcamp.tennis;
+package cn.xpbootcamp.tennis.score;
+
+import cn.xpbootcamp.tennis.Player;
 
 public class EmptyScore extends AbstractScore {
     public EmptyScore(Player player1, Player player2) {

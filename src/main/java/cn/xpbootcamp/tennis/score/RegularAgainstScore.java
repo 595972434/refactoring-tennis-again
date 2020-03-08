@@ -1,8 +1,10 @@
-package cn.xpbootcamp.tennis;
+package cn.xpbootcamp.tennis.score;
 
-public class RegularAgainst extends AbstractScore {
+import cn.xpbootcamp.tennis.Player;
 
-    public RegularAgainst(Player player1, Player player2) {
+public class RegularAgainstScore extends AbstractScore {
+
+    public RegularAgainstScore(Player player1, Player player2) {
         super(player1, player2);
     }
 
