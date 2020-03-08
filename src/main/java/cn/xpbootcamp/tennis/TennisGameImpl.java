@@ -1,8 +1,10 @@
 package cn.xpbootcamp.tennis;
 
+import java.util.Arrays;
+
 public class TennisGameImpl {
-    private int player1Score1 = 0;
-    private int player2Score2 = 0;
+    private int player1Score = 0;
+    private int player2Score = 0;
     private String player1Name;
     private String player2Name;
 
@@ -13,42 +15,28 @@ public class TennisGameImpl {
 
     public void wonPoint(String playerName) {
         if (player1Name.equals(playerName))
-            player1Score1 += 1;
+            player1Score += 1;
         else
-            player2Score2 += 1;
+            player2Score += 1;
     }
 
     public String getScore() {
         String score = "";
-        int tempScore = 0;
-        if (player1Score1 == player2Score2) {
-            switch (player1Score1) {
-                case 0:
-                    score = "Love-All";
-                    break;
-                case 1:
-                    score = "Fifteen-All";
-                    break;
-                case 2:
-                    score = "Thirty-All";
-                    break;
-                default:
-                    score = "Deuce";
-                    break;
-
-            }
-        } else if (player1Score1 >= 4 || player2Score2 >= 4) {
-            int minusResult = player1Score1 - player2Score2;
+        int tempScore;
+        if (player1Score == player2Score) {
+            score = player1Score >2 ? "Deuce" : getScoreName(player1Score) + '-' + "All";
+        } else if (player1Score >= 4 || player2Score >= 4) {
+            int minusResult = player1Score - player2Score;
             if (minusResult == 1) score = "Advantage " + player1Name;
             else if (minusResult == -1) score = "Advantage " + player2Name;
             else if (minusResult >= 2) score = "Win for " + player1Name;
             else score = "Win for " + player2Name;
         } else {
             for (int i = 1; i < 3; i++) {
-                if (i == 1) tempScore = player1Score1;
+                if (i == 1) tempScore = player1Score;
                 else {
                     score += "-";
-                    tempScore = player2Score2;
+                    tempScore = player2Score;
                 }
                 switch (tempScore) {
                     case 0:
@@ -68,4 +56,9 @@ public class TennisGameImpl {
         }
         return score;
     }
+
+    private String getScoreName(int score) {
+        return Arrays.asList("Love", "Fifteen", "Thirty", "Forty").get(score);
+    }
+
 }
