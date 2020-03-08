@@ -19,48 +19,23 @@ public class TennisGameImpl {
     }
 
     public String getScore() {
-        if (isTiedScore()) {
+        if (player1.isTiedWith(player2)) {
             return player1.getScore() > 2 ? "Deuce" : getScoreName(player1.getScore()) + "-All";
         }
-        if (isPlayer1Advantage()) {
+        if (player1.isAdvantageWith(player2)) {
             return "Advantage " + player1.getName();
         }
-        if (isPlayer2Advantage()) {
+        if (player2.isAdvantageWith(player1)) {
             return "Advantage " + player2.getName();
         }
-        if (isPlayer1Won()) {
+        if (player1.isWonWith(player2)) {
             return "Win for " + player1.getName();
         }
-        if (isPlayer2Won()) {
+        if (player2.isWonWith(player1)) {
             return "Win for " + player2.getName();
         }
         return getScoreName(player1.getScore()) + "-" + getScoreName(player2.getScore());
 
-    }
-
-    private boolean isPlayer2Won() {
-        return isAtLeastOneUpto4Point() && player2.getScore() - player1.getScore() >= 2;
-
-    }
-
-    private boolean isPlayer1Won() {
-        return isAtLeastOneUpto4Point() && player1.getScore() - player2.getScore() >= 2;
-    }
-
-    private boolean isPlayer2Advantage() {
-        return isAtLeastOneUpto4Point() && player2.getScore() - player1.getScore() == 1;
-    }
-
-    private boolean isPlayer1Advantage() {
-        return isAtLeastOneUpto4Point() && player1.getScore() - player2.getScore() == 1;
-    }
-
-    private boolean isAtLeastOneUpto4Point() {
-        return player1.getScore() >= 4 || player2.getScore() >= 4;
-    }
-
-    private boolean isTiedScore() {
-        return player1.getScore() == player2.getScore();
     }
 
     private String getScoreName(int score) {
