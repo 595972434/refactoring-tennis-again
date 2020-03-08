@@ -1,5 +1,9 @@
 package cn.xpbootcamp.tennis;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class TennisGameImpl {
     private Player player1;
     private Player player2;
@@ -18,22 +22,19 @@ public class TennisGameImpl {
     }
 
     public String getScore() {
-        TiedScore tiedScore = new TiedScore(player1, player2);
-        if (tiedScore.isApplied()) {
-            return tiedScore.state();
-        }
-        AdvantageScore advantageScore = new AdvantageScore(player1, player2);
-        if (advantageScore.isApplied()) {
-            return advantageScore.state();
-        }
-        WonScore wonScore = new WonScore(player1, player2);
-        if (wonScore.isApplied()) {
-            return wonScore.state();
-        }
-        RegularLandScore regularLandScore = new RegularLandScore(player1, player2);
-        if (regularLandScore.isApplied())
-        return regularLandScore.state();
-        return new EmptyScore(player1, player2).state();
+        return generatePossibleScore().stream()
+                .filter(AbstractScore::isApplied)
+                .findFirst().orElse(new EmptyScore(player1, player2))
+                .state();
+    }
+
+    private List<AbstractScore> generatePossibleScore(){
+        return  Arrays.asList(
+                new TiedScore(player1, player2),
+                new AdvantageScore(player1, player2),
+                new WonScore(player1, player2),
+                new RegularLandScore(player1, player2)
+        );
     }
 
 }
