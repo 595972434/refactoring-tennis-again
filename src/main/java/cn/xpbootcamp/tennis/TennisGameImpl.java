@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class TennisGameImpl {
     private int player1Score = 0;
-    private int play2Score = 0;
+    private int player2Score = 0;
     private String player1Name;
     private String player2Name;
 
@@ -17,23 +17,54 @@ public class TennisGameImpl {
         if (playerName.equals(player1Name))
             player1Score += 1;
         else
-            play2Score += 1;
+            player2Score += 1;
     }
 
     public String getScore() {
-        String score;
-        if (player1Score == play2Score) {
-            score = player1Score > 2 ? "Deuce" : getScoreName(player1Score) + "-All";
-        } else if (player1Score >= 4 || play2Score >= 4) {
-            int minusResult = player1Score - play2Score;
-            if (minusResult == 1) score = "Advantage " + player1Name;
-            else if (minusResult == -1) score = "Advantage " + player2Name;
-            else if (minusResult >= 2) score = "Win for " + player1Name;
-            else score = "Win for " + player2Name;
+        if (isTiedScore()) {
+            return player1Score > 2 ? "Deuce" : getScoreName(player1Score) + "-All";
+        } else if (isAtLeastOneUpto4Point()) {
+            if (isPlayer1Advantage()) {
+                return "Advantage " + player1Name;
+            }
+            if (isPlayer2Advantage()) {
+                return "Advantage " + player2Name;
+            }
+            if (isPlayer1Won()) {
+                return "Win for " + player1Name;
+            }
+            if (isPlayer2Won()) {
+                return "Win for " + player2Name;
+            }
         } else {
-            score = getScoreName(player1Score) + "-" + getScoreName(play2Score);
+            return getScoreName(player1Score) + "-" + getScoreName(player2Score);
         }
-        return score;
+        return "";
+    }
+
+    private boolean isPlayer2Won() {
+        return player2Score - player1Score >= 2;
+
+    }
+
+    private boolean isPlayer1Won() {
+        return player1Score - player2Score >= 2;
+    }
+
+    private boolean isPlayer2Advantage() {
+        return player2Score - player1Score == 1;
+    }
+
+    private boolean isPlayer1Advantage() {
+        return player1Score - player2Score == 1;
+    }
+
+    private boolean isAtLeastOneUpto4Point() {
+        return player1Score >= 4 || player2Score >= 4;
+    }
+
+    private boolean isTiedScore() {
+        return player1Score == player2Score;
     }
 
     private String getScoreName(int score) {
