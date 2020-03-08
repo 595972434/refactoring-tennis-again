@@ -1,18 +1,15 @@
 package cn.xpbootcamp.tennis;
 
-public class AdvantageScore {
-    private final Player player1;
-    private final Player player2;
-
+public class AdvantageScore extends AbstractScore {
     public AdvantageScore(Player player1, Player player2) {
-        this.player1 = player1;
-        this.player2 = player2;
+        super(player1, player2);
     }
 
-    public boolean isApplied(){
+    public boolean isApplied() {
         return player1.hasAdvantageOver(player2) || player2.hasAdvantageOver(player1);
     }
+
     public String state() {
-        return "Advantage " + (player1.hasAdvantageOver(player2) ? player1.getName():player2.getName());
+        return "Advantage " + (player1.hasAdvantageOver(player2) ? player1.getName() : player2.getName());
     }
 }
