@@ -20,22 +20,38 @@ public class TennisGameImpl {
 
     public String getScore() {
         if (player1.isTiedWith(player2)) {
-            return player1.getScore() > 2 ? "Deuce" : getScoreName(player1.getScore()) + "-All";
+            return showTiedScore();
         }
         if (player1.isAdvantageWith(player2)) {
-            return "Advantage " + player1.getName();
+            return showAdvantageScore(player1);
         }
         if (player2.isAdvantageWith(player1)) {
-            return "Advantage " + player2.getName();
+            return showAdvantageScore(player2);
         }
         if (player1.isWonWith(player2)) {
-            return "Win for " + player1.getName();
+            return showWonScore(player1);
         }
         if (player2.isWonWith(player1)) {
-            return "Win for " + player2.getName();
+            return showWonScore(player2);
         }
-        return getScoreName(player1.getScore()) + "-" + getScoreName(player2.getScore());
+        return showRegularAgainst(player1, player2);
 
+    }
+
+    private String showRegularAgainst(Player player1, Player player2) {
+        return getScoreName(player1.getScore()) + "-" + getScoreName(player2.getScore());
+    }
+
+    private String showWonScore(Player player) {
+        return "Win for " + player.getName();
+    }
+
+    private String showAdvantageScore(Player player) {
+        return "Advantage " + player.getName();
+    }
+
+    private String showTiedScore() {
+        return player1.getScore() > 2 ? "Deuce" : getScoreName(player1.getScore()) + "-All";
     }
 
     private String getScoreName(int score) {
