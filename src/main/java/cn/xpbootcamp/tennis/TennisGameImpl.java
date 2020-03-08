@@ -1,7 +1,5 @@
 package cn.xpbootcamp.tennis;
 
-import java.util.Arrays;
-
 public class TennisGameImpl {
     private Player player1;
     private Player player2;
@@ -19,42 +17,23 @@ public class TennisGameImpl {
     }
 
     public String getScore() {
-        if (player1.isTiedWith(player2)) {
-            return showTiedScore();
+        TiedScore tiedScore = new TiedScore(player1, player2);
+        if (tiedScore.isApplied()) {
+            return tiedScore.state();
         }
-        if (player1.isAdvantageWith(player2)) {
-            return showAdvantageScore(player1);
+        AdvantageScore advantageScore = new AdvantageScore(player1, player2);
+        if (advantageScore.isApplied()) {
+            return advantageScore.state();
         }
-        if (player2.isAdvantageWith(player1)) {
-            return showAdvantageScore(player2);
+        WonScore wonScore = new WonScore(player1, player2);
+        if (wonScore.isApplied()) {
+            return wonScore.state();
         }
-        if (player1.isWonWith(player2)) {
-            return showWonScore(player1);
+        RegularAgainst regularAgainst = new RegularAgainst(player1, player2);
+        if (regularAgainst.isApplied()) {
+            return regularAgainst.state();
         }
-        if (player2.isWonWith(player1)) {
-            return showWonScore(player2);
-        }
-        return showRegularAgainst(player1, player2);
+        return "";
 
-    }
-
-    private String showRegularAgainst(Player player1, Player player2) {
-        return getScoreName(player1.getScore()) + "-" + getScoreName(player2.getScore());
-    }
-
-    private String showWonScore(Player player) {
-        return "Win for " + player.getName();
-    }
-
-    private String showAdvantageScore(Player player) {
-        return "Advantage " + player.getName();
-    }
-
-    private String showTiedScore() {
-        return player1.getScore() > 2 ? "Deuce" : getScoreName(player1.getScore()) + "-All";
-    }
-
-    private String getScoreName(int score) {
-        return Arrays.asList("Love", "Fifteen", "Thirty", "Forty").get(score);
     }
 }
