@@ -9,10 +9,12 @@ public class RegularLandScore extends AbstractScore {
         super(player1, player2);
     }
 
+    @Override
     public String state() {
         return getScoreName(player1.getScore()) + '-' + getScoreName(player2.getScore());
     }
 
+    @Override
     public boolean isApplied() {
         return true;
     }

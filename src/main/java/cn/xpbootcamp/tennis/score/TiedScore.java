@@ -9,11 +9,13 @@ public class TiedScore extends AbstractScore {
         super(player1, player2);
     }
 
+    @Override
     public String state() {
-        return player1.getScore() >2 ? "Deuce" : getScoreName(player1.getScore()) + '-' + "All";
+        return player1.getScore() > 2 ? "Deuce" : getScoreName(player1.getScore()) + '-' + "All";
 
     }
 
+    @Override
     public boolean isApplied() {
         return player1.isTiedWith(player2);
     }

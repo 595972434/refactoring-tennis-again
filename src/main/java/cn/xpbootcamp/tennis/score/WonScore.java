@@ -8,11 +8,12 @@ public class WonScore extends AbstractScore {
         super(player1, player2);
     }
 
-
+    @Override
     public String state() {
         return "Win for " + (player1.hasWonAgainst(player2) ? player1.getName() : player2.getName());
     }
 
+    @Override
     public boolean isApplied() {
         return player1.hasWonAgainst(player2) || player2.hasWonAgainst(player1);
     }

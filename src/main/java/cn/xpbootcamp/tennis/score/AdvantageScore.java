@@ -7,10 +7,11 @@ public class AdvantageScore extends AbstractScore {
         super(player1, player2);
     }
 
+    @Override
     public boolean isApplied() {
         return player1.hasAdvantageOver(player2) || player2.hasAdvantageOver(player1);
     }
-
+    @Override
     public String state() {
         return "Advantage " + (player1.hasAdvantageOver(player2) ? player1.getName() : player2.getName());
     }
